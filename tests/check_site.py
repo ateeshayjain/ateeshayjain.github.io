@@ -50,6 +50,8 @@ CONTRAST_PAIRS = [
     ("ink", "surface"),
     ("on-primary", "primary"),
     ("primary", "bg"),  # links are drawn in --primary on the page background
+    ("ink-muted", "surface"),  # secondary text inside cards
+    ("ink-muted", "surface-alt"),  # secondary text on tinted panels
 ]
 
 VOID_TAGS = {
