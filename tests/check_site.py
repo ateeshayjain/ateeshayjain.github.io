@@ -227,6 +227,41 @@ def check_internal_links(root: Path, pages: dict[Path, Page]) -> None:
                     fail("check_internal_links", rel, f'{tag} {attr}="{value}": no id "{parts.fragment}"')
 
 
+CSS_URL = re.compile(r"url\(\s*['\"]?([^'\")]+)['\"]?\s*\)", re.I)
+
+
+def check_css_urls(root: Path) -> None:
+    """Every local url() in a stylesheet (fonts, images) resolves to a file."""
+    for css in site_files(root, "*.css"):
+        text = re.sub(r"/\*.*?\*/", "", css.read_text(encoding="utf-8"), flags=re.S)
+        for url in CSS_URL.findall(text):
+            url = url.strip()
+            if is_external(url):
+                continue
+            target = resolve(root, css, urlsplit(url).path)
+            if target is None:
+                fail("check_css_urls", css.relative_to(root).as_posix(), f'url("{url}") does not resolve')
+
+
+PRELOAD_FONTS = ["/assets/fonts/fraunces-latin.woff2", "/assets/fonts/dm-sans-latin.woff2"]
+
+
+def check_font_preload(root: Path, pages: dict[Path, Page]) -> None:
+    """Every page preloads the two latin font files, with crossorigin."""
+    for path, page in pages.items():
+        rel = path.relative_to(root).as_posix()
+        preloads = {
+            l.get("href"): l for l in page.links
+            if "preload" in l.get("rel", "").lower().split() and l.get("as") == "font"
+        }
+        for href in PRELOAD_FONTS:
+            link = preloads.get(href)
+            if link is None:
+                fail("check_font_preload", rel, f"no font preload for {href}")
+            elif "crossorigin" not in link or link.get("type") != "font/woff2":
+                fail("check_font_preload", rel, f"preload {href} needs type=font/woff2 and crossorigin")
+
+
 def check_legal_links(root: Path, pages: dict[Path, Page]) -> None:
     for rel, urls in LEGAL_LINKS.items():
         path = (root / rel).resolve()
@@ -488,6 +523,8 @@ def main(argv: list[str] | None = None) -> int:
 
     check_pages_exist(root)
     check_internal_links(root, pages)
+    check_css_urls(root)
+    check_font_preload(root, pages)
     check_legal_links(root, pages)
     check_head(root, pages)
     check_alt(root, pages)
