@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Accessibility statement — Aangan — Home Manager</title>
+  <meta name="description" content="What Aangan supports for people who rely on assistive technology, what is not yet verified, and how to report a problem.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Aangan — Accessibility statement">
+  <meta property="og:description" content="What Aangan supports for people who rely on assistive technology, what is not yet verified, and how to report a problem.">
+  <meta name="theme-color" content="#FBF7F2" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1A1411" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/assets/img/aangan-icon-256.png" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/img/aangan-icon-256.png">
+  <link rel="preload" href="/assets/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/dm-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/css/site.css">
+</head>
+<body data-theme="aangan">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="wordmark" href="/">Ateeshay Jain</a>
+      <nav class="site-nav" aria-label="Main">
+        <ul>
+          <li><a href="/apps/" aria-current="true">Apps</a></li>
+          <li><a href="/#about">About</a></li>
+          <li><a href="/#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="page-title">
+      <div class="wrap">
+        <p class="eyebrow"><a href="/apps/aangan/">Aangan — Home Manager</a></p>
+        <h1 id="page-title">Accessibility statement</h1>
+        <p class="lede">Last updated 12 November 2026, corrected after the November 2026 audit. First written 22 August 2026.</p>
+        <hr class="rule">
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap prose">
+        <p>Aangan is built to be usable by everyone who runs an Indian household, including people who rely on assistive technology. This statement describes what is supported today, what is not yet verified, and how to reach us. Nothing below has been checked with VoiceOver, Voice Control or Switch Control on a real iPhone yet; where a line rests on a simulator check or on reading the code, our accessibility audit notes say so.</p>
+
+        <h2 id="supported">Supported</h2>
+        <ul>
+          <li><strong>Dynamic Type</strong>: text uses the system’s semantic text styles, so it scales with your iOS text-size setting. At the largest sizes the main lists (Today, People, Bills), the bill page, the salary card and the spend report put figures under names instead of beside them. Some screens are not adapted yet (see below).</li>
+          <li><strong>Dark Mode</strong>: light and dark are both supported. The contrast of the brand colours, and of every coloured label drawn on a tint of its own colour, is measured against WCAG AA in both appearances by tests on every build.</li>
+          <li><strong>Status is not shown by colour alone in the main lists and calendars</strong>: attendance, bill and salary status pair the colour with an icon or words. A chosen weekly-off day, list icon or list colour carries a tick or a border as well as the fill.</li>
+          <li><strong>VoiceOver labels</strong>: icon-only buttons are meant to carry spoken labels that say what they do, and charts are paired with a written summary. An automated check of labels, traits and tap areas runs on the five main tabs on every build. Screens beyond those five are checked by reading the code, and gaps are still being found (see below).</li>
+          <li><strong>Reduce Motion</strong>: animations soften to fades or none when Reduce Motion is on.</li>
+          <li><strong>Touch targets</strong>: the aim is 44 points for every control. The month arrows, calendar days, filter menus and pickers found below that size in November 2026 were raised. Known exceptions are listed below.</li>
+          <li><strong>No flashing content</strong>, no autoplaying media, no unexpected sound.</li>
+        </ul>
+
+        <h2 id="limitations">Known limitations (being worked on)</h2>
+        <ul>
+          <li>No VoiceOver, Voice Control or Switch Control pass has been done on a real iPhone for any version. The largest text sizes have been looked at on a simulator only.</li>
+          <li>Three actions still need a gesture: dismissing or snoozing an item in “Needs you” (swipe; VoiceOver offers them as actions), zooming a scanned document (pinch; VoiceOver has its own zoom action), and “More options” on a staff circle on Today (touch and hold; VoiceOver offers it as an action).</li>
+          <li>At the largest text sizes: the month grid of the Calendar keeps seven columns, so day numbers shrink to fit; the “Paid via” row on the Mark-as-paid forms and the dish list’s ingredient line are not adapted yet.</li>
+          <li>The weekly-off day buttons are 44 points tall but narrower than 44 points on the smallest iPhones.</li>
+          <li>Diet-tag dots and list colour samples use plain system colours whose contrast as shapes has not been measured. Small grey secondary text uses the iPhone’s standard secondary colour, which is below 4.5:1 in light mode unless Increase Contrast is on.</li>
+          <li>Laundry item counts are read by VoiceOver as a number without the item’s name.</li>
+          <li>Text on a scanned document or receipt is not read aloud; only its title is.</li>
+          <li>Reduce Transparency and Differentiate Without Colour are not handled specially.</li>
+          <li>The app is English with inline Hindi/Devanagari in places; it is not yet fully localised, and right-to-left layouts are not supported.</li>
+          <li>iPhone only, portrait only.</li>
+        </ul>
+
+        <h2 id="standard">Standard</h2>
+        <p>We target <strong>WCAG 2.1 AA</strong> and Apple’s Human Interface Guidelines for accessibility. We treat an accessibility defect that stops someone completing a task at the same priority as a functional bug of equal impact.</p>
+
+        <h2 id="contact">Contact</h2>
+        <p>If any part of Aangan is hard to use with assistive technology, please tell us by emailing <a href="mailto:Ateeshay.jain@gmail.com">Ateeshay.jain@gmail.com</a> (the support link in the App Store listing); the app’s More ▸ Settings ▸ About section links this statement’s companion policy pages. Describe the screen and the assistive feature you were using, and we will treat it as a real bug.</p>
+
+        <p><a href="/apps/aangan/">Back to Aangan</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>© 2026 Ateeshay Jain</p>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/apps/">Apps</a></li>
+        <li><a href="/apps/aangan/">Aangan</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>
