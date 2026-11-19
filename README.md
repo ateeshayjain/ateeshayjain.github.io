@@ -1,2 +1,3 @@
 # ateeshayjain.github.io
-GitHub Pages root for site ownership verification
+
+Source of Ateeshay Jain's personal site: a home page, an Apps index and one page per released app (Tattvam, Aangan), each carrying its privacy, terms, support and delete-your-data information. It is plain HTML with one shared stylesheet (`assets/css/site.css`), no build step and no tracking, served by GitHub Pages (`.nojekyll`). `google6bf0be3df5a80368.html` is a Google site-verification file and must stay byte-identical. Run the checks with `python3 tests/check_site.py` (exit 0 means pass); `python3 tests/check_site.py --release` also fails while any `TODO(owner)` placeholder is left.
