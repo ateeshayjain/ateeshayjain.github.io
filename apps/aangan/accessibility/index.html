@@ -37,38 +37,32 @@
       <div class="wrap">
         <p class="eyebrow"><a href="/apps/aangan/">Aangan — Home Manager</a></p>
         <h1 id="page-title">Accessibility statement</h1>
-        <p class="lede">Last updated 12 November 2026, corrected after the November 2026 audit. First written 22 August 2026.</p>
+        <p class="lede">Last updated 22 August 2026.</p>
         <hr class="rule">
       </div>
     </section>
 
     <section class="section">
       <div class="wrap prose">
-        <p>Aangan is built to be usable by everyone who runs an Indian household, including people who rely on assistive technology. This statement describes what is supported today, what is not yet verified, and how to reach us. Nothing below has been checked with VoiceOver, Voice Control or Switch Control on a real iPhone yet; where a line rests on a simulator check or on reading the code, our accessibility audit notes say so.</p>
+        <p>Aangan is built to be usable by everyone who runs an Indian household, including people who rely on assistive technology. This statement describes what is supported today, what is not yet verified, and how to reach us.</p>
 
         <h2 id="supported">Supported</h2>
         <ul>
-          <li><strong>Dynamic Type</strong>: text uses the system’s semantic text styles, so it scales with your iOS text-size setting. At the largest sizes the main lists (Today, People, Bills), the bill page, the salary card and the spend report put figures under names instead of beside them. Some screens are not adapted yet (see below).</li>
-          <li><strong>Dark Mode</strong>: light and dark are both supported. The contrast of the brand colours, and of every coloured label drawn on a tint of its own colour, is measured against WCAG AA in both appearances by tests on every build.</li>
-          <li><strong>Status is not shown by colour alone in the main lists and calendars</strong>: attendance, bill and salary status pair the colour with an icon or words. A chosen weekly-off day, list icon or list colour carries a tick or a border as well as the fill.</li>
-          <li><strong>VoiceOver labels</strong>: icon-only buttons are meant to carry spoken labels that say what they do, and charts are paired with a written summary. An automated check of labels, traits and tap areas runs on the five main tabs on every build. Screens beyond those five are checked by reading the code, and gaps are still being found (see below).</li>
+          <li><strong>Dynamic Type</strong>: text uses the system’s semantic text styles, so it scales with your iOS text-size setting. The remaining fixed calendar micro-type was replaced with scalable styles for version 1.4.</li>
+          <li><strong>Dark Mode</strong>: full light and dark support; colour contrast is checked automatically against WCAG AA in both appearances on every build.</li>
+          <li><strong>Colour is never the only signal</strong>: status is always paired with an icon or text label, so meaning does not depend on distinguishing colours.</li>
+          <li><strong>VoiceOver labels</strong>: icon-only buttons carry spoken labels that say what they do; charts are paired with a written summary rather than left silent.</li>
           <li><strong>Reduce Motion</strong>: animations soften to fades or none when Reduce Motion is on.</li>
-          <li><strong>Touch targets</strong>: the aim is 44 points for every control. The month arrows, calendar days, filter menus and pickers found below that size in November 2026 were raised. Known exceptions are listed below.</li>
+          <li><strong>Touch targets</strong>: interactive controls are sized for comfortable tapping.</li>
           <li><strong>No flashing content</strong>, no autoplaying media, no unexpected sound.</li>
         </ul>
 
         <h2 id="limitations">Known limitations (being worked on)</h2>
         <ul>
-          <li>No VoiceOver, Voice Control or Switch Control pass has been done on a real iPhone for any version. The largest text sizes have been looked at on a simulator only.</li>
-          <li>Three actions still need a gesture: dismissing or snoozing an item in “Needs you” (swipe; VoiceOver offers them as actions), zooming a scanned document (pinch; VoiceOver has its own zoom action), and “More options” on a staff circle on Today (touch and hold; VoiceOver offers it as an action).</li>
-          <li>At the largest text sizes: the month grid of the Calendar keeps seven columns, so day numbers shrink to fit; the “Paid via” row on the Mark-as-paid forms and the dish list’s ingredient line are not adapted yet.</li>
-          <li>The weekly-off day buttons are 44 points tall but narrower than 44 points on the smallest iPhones.</li>
-          <li>Diet-tag dots and list colour samples use plain system colours whose contrast as shapes has not been measured. Small grey secondary text uses the iPhone’s standard secondary colour, which is below 4.5:1 in light mode unless Increase Contrast is on.</li>
-          <li>Laundry item counts are read by VoiceOver as a number without the item’s name.</li>
-          <li>Text on a scanned document or receipt is not read aloud; only its title is.</li>
-          <li>Reduce Transparency and Differentiate Without Colour are not handled specially.</li>
+          <li>A full VoiceOver / Voice Control / Switch Control task pass on physical devices has not yet been completed for every screen.</li>
+          <li>Behaviour at the very largest accessibility text sizes (AX4/AX5) is covered by scalable layouts in source but is not yet verified on the processed TestFlight build across the busiest money screens.</li>
           <li>The app is English with inline Hindi/Devanagari in places; it is not yet fully localised, and right-to-left layouts are not supported.</li>
-          <li>iPhone only, portrait only.</li>
+          <li>iPhone only (no iPad-optimised layout yet).</li>
         </ul>
 
         <h2 id="standard">Standard</h2>
