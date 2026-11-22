@@ -28,14 +28,16 @@ REQUIRED_FILES = [
     "apps/tattvam/index.html",
     "apps/aangan/index.html",
     "apps/aangan/accessibility/index.html",
+    "apps/tattvam/privacy/index.html",
+    "apps/tattvam/terms/index.html",
     "404.html",
     "assets/css/site.css",
 ]
 
 LEGAL_LINKS = {
     "apps/tattvam/index.html": [
-        "https://ateeshayjain.github.io/tattvam-legal/",
-        "https://ateeshayjain.github.io/tattvam-legal/terms.html",
+        "/apps/tattvam/privacy/",
+        "/apps/tattvam/terms/",
     ],
     "apps/aangan/index.html": [
         "https://ateeshayjain.github.io/aangan-site/",
