@@ -5,6 +5,8 @@
  *                            Templates/Nature-Palettes/Tidepool/tokens.css
  *   [data-theme="tattvam"]   Tattvam brand roles (plum on ivory)
  *   [data-theme="aangan"]    Aangan brand roles (terracotta on cream)
+ *   [data-theme="sangrah"]   Sangrah brand roles (the icon's navy, cream and
+ *                            ribbon indigo; BrandColors.swift in the app)
  * Each block has a prefers-color-scheme: dark counterpart.
  * tests/check_site.py parses these blocks and fails below WCAG AA 4.5:1.
  */
@@ -142,6 +144,18 @@
   --accent: #A8553A;
   --highlight: #A8553A;
 }
+[data-theme="sangrah"] {
+  --bg: #F8F4EC;
+  --surface: #FFFFFF;
+  --surface-alt: #EFE7D8;   /* the icon's cream page */
+  --ink: #1C2140;           /* the icon's navy */
+  --ink-muted: #565B73;
+  --primary: #3F51B5;       /* the icon's ribbon */
+  --on-primary: #FFFFFF;
+  --border: #E4DCCB;
+  --accent: #3F51B5;
+  --highlight: #3F51B5;
+}
 @media (prefers-color-scheme: dark) {
   [data-theme="tattvam"] {
     --bg: #1E1218;
@@ -166,6 +180,18 @@
     --border: #3A2C24;
     --accent: #E09A7E;
     --highlight: #E09A7E;
+  }
+  [data-theme="sangrah"] {
+    --bg: #141831;
+    --surface: #1C2140;
+    --surface-alt: #252B52;
+    --ink: #F4EDE0;
+    --ink-muted: #B9B6C6;
+    --primary: #A9B4F0;
+    --on-primary: #141831;
+    --border: #2E3560;
+    --accent: #A9B4F0;
+    --highlight: #A9B4F0;
   }
 }
 

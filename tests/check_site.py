@@ -30,6 +30,9 @@ REQUIRED_FILES = [
     "apps/aangan/accessibility/index.html",
     "apps/tattvam/privacy/index.html",
     "apps/tattvam/terms/index.html",
+    "apps/sangrah/index.html",
+    "apps/sangrah/privacy/index.html",
+    "apps/sangrah/support/index.html",
     "404.html",
     "assets/css/site.css",
 ]
@@ -42,6 +45,10 @@ LEGAL_LINKS = {
     "apps/aangan/index.html": [
         "https://ateeshayjain.github.io/aangan-site/",
         "https://ateeshayjain.github.io/aangan-site/terms.html",
+    ],
+    "apps/sangrah/index.html": [
+        "/apps/sangrah/privacy/",
+        "/apps/sangrah/support/",
     ],
 }
 
