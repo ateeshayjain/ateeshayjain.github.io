@@ -702,3 +702,26 @@ span.todo { display: inline-block; }
   font-size: 1.1875rem;
 }
 .contact-links a { display: inline-block; padding-block: var(--space-2); }
+
+/* Long-form legal pages (moved out of inline <style> blocks so the strict
+   Content-Security-Policy can forbid inline styles). */
+[data-theme="sangrah"] .legal p, [data-theme="sangrah"] .legal ul { margin-block: var(--space-3) 0; }
+[data-theme="sangrah"] .legal .todo { margin-block: var(--space-3) 0; }
+[data-theme="tattvam"] .legal h2 { font-size: 1.5rem; }
+[data-theme="tattvam"] .legal h3 { margin: var(--space-8) 0 var(--space-3); }
+[data-theme="tattvam"] .legal p, [data-theme="tattvam"] .legal ul, [data-theme="tattvam"] .legal ol { margin-block: var(--space-3) 0; }
+[data-theme="tattvam"] .legal hr { border: 0; border-top: 1px solid var(--border); margin: var(--space-8) 0; }
+[data-theme="tattvam"] .legal code { font-family: var(--font-mono); font-size: 0.9em; background: var(--surface-alt); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+[data-theme="tattvam"] .legal blockquote { margin: var(--space-6) 0; padding: var(--space-3) var(--space-4); border-left: 3px solid var(--primary); background: var(--surface); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; color: var(--ink-muted); }
+[data-theme="tattvam"] .legal blockquote p { margin: 0; }
+[data-theme="tattvam"] .legal .doc-table { margin: var(--space-6) 0; }
+[data-theme="tattvam"] .legal table { width: 100%; border-collapse: collapse; font-size: 0.9375rem; }
+[data-theme="tattvam"] .legal th, [data-theme="tattvam"] .legal td { text-align: left; vertical-align: top; padding: var(--space-3) var(--space-4) var(--space-3) 0; border-bottom: 1px solid var(--border); }
+[data-theme="tattvam"] .legal th { font-size: 0.8125rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-muted); }
+@media (max-width: 640px) {
+[data-theme="tattvam"] .legal thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+[data-theme="tattvam"] .legal table, [data-theme="tattvam"] .legal tbody, [data-theme="tattvam"] .legal tr, [data-theme="tattvam"] .legal td { display: block; }
+[data-theme="tattvam"] .legal tr { padding: var(--space-3) 0; border-bottom: 1px solid var(--border); }
+[data-theme="tattvam"] .legal td { border: 0; padding: var(--space-1) 0; }
+[data-theme="tattvam"] .legal td::before { content: attr(data-label); display: block; font-size: 0.8125rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-muted); }
+}

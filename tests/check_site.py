@@ -22,6 +22,17 @@ from urllib.parse import urlsplit, unquote
 GOOGLE_FILE = "google6bf0be3df5a80368.html"
 GOOGLE_SHA256 = "81a13debe7dbf46bf01b06756243905d38dc62c17b2cbf9993f0f492650ca333"
 
+# Strict Content-Security-Policy, set per page with a meta tag (GitHub Pages
+# cannot send headers). The site has no scripts, no inline styles and loads
+# nothing from other hosts, so everything else stays blocked. frame-ancestors
+# is ignored in a meta tag; clickjacking protection needs a response header.
+CSP = (
+    "default-src 'none'; style-src 'self'; font-src 'self'; img-src 'self'; "
+    "base-uri 'none'; form-action 'none'; upgrade-insecure-requests"
+)
+CSP_META = f'<meta http-equiv="Content-Security-Policy" content="{CSP}">'
+REFERRER_META = '<meta name="referrer" content="strict-origin-when-cross-origin">'
+
 REQUIRED_FILES = [
     "index.html",
     "apps/index.html",
@@ -497,6 +508,29 @@ def check_contrast(root: Path) -> None:
 
 # ---------------------------------------------------------------- release
 
+def check_csp(root: Path, files: list[Path]) -> None:
+    """Every page carries the strict CSP right after <meta charset>, plus a
+    referrer policy, and has nothing the CSP would silently block."""
+    for f in files:
+        rel = f.relative_to(root).as_posix()
+        text = f.read_text(encoding="utf-8")
+        m = re.search(r'<meta charset="utf-8">\s*(<meta[^>]*>)', text, re.I)
+        if not m or m.group(1) != CSP_META:
+            fail("check_csp", rel, "the line after <meta charset> must be the strict CSP meta tag")
+        if REFERRER_META not in text:
+            fail("check_csp", rel, "missing referrer-policy meta tag")
+        if re.search(r"<script\b", text, re.I):
+            fail("check_csp", rel, "<script> is blocked by the CSP")
+        if re.search(r"<style\b", text, re.I):
+            fail("check_csp", rel, "<style> is blocked by the CSP; use assets/css/site.css")
+        if re.search(r'\sstyle\s*=', text, re.I):
+            fail("check_csp", rel, "inline style= is blocked by the CSP")
+        if re.search(r'\son[a-z]+\s*=', text, re.I):
+            fail("check_csp", rel, "inline event handler is blocked by the CSP")
+        if re.search(r'(src|href)\s*=\s*"data:', text, re.I):
+            fail("check_csp", rel, "data: URLs are blocked by the CSP")
+
+
 def check_todos(root: Path, files: list[Path]) -> None:
     for f in files:
         text = f.read_text(encoding="utf-8")
@@ -541,6 +575,7 @@ def main(argv: list[str] | None = None) -> int:
     check_verification_file(root)
     check_no_empty_shots(root, pages)
     check_contrast(root)
+    check_csp(root, html_files)
     if args.release:
         check_todos(root, html_files + site_files(root, "*.css"))
 
