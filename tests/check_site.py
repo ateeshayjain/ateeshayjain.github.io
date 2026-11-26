@@ -574,6 +574,10 @@ def check_vercel_headers(root: Path) -> None:
         for bad in ("'unsafe-inline'", "'unsafe-eval'", "'unsafe-hashes'", " * ", "data:", "http:"):
             if bad in csp:
                 fail("check_vercel_headers", "vercel.json", f"{src}: CSP contains {bad.strip()}")
+        # No hashes or extra sources: every page here, the proxied legal pages
+        # included, keeps its styles in a file on this site.
+        if "style-src 'self'" not in [d.strip() for d in csp.split(";")]:
+            fail("check_vercel_headers", "vercel.json", f"{src}: style-src must be exactly 'self'")
 
 
 def check_todos(root: Path, files: list[Path]) -> None:
