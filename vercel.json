@@ -3,7 +3,7 @@
   "trailingSlash": true,
   "headers": [
     {
-      "source": "/(.*)",
+      "source": "/((?!aangan-site/).*)",
       "headers": [
         {
           "key": "Content-Security-Policy",
@@ -20,12 +20,34 @@
         { "key": "Cross-Origin-Opener-Policy", "value": "same-origin" },
         { "key": "Cross-Origin-Resource-Policy", "value": "same-origin" }
       ]
+    },
+    {
+      "source": "/aangan-site/(.*)",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'none'; script-src 'none'; style-src 'sha256-vhVLTc+KLPYnvy7yLc76PVlRz8z4C0NNLzlRVG1YDfY=' 'sha256-DClfjSFQzhreW732ZzeNwYmT8pc6FfxVjmaZ4YnH8mg='; img-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'self'; require-trusted-types-for 'script'; upgrade-insecure-requests"
+        },
+        { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        {
+          "key": "Permissions-Policy",
+          "value": "accelerometer=(), autoplay=(), browsing-topics=(), camera=(), display-capture=(), encrypted-media=(), fullscreen=(self), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), publickey-credentials-get=(), screen-wake-lock=(), serial=(), usb=(), xr-spatial-tracking=()"
+        },
+        { "key": "Cross-Origin-Opener-Policy", "value": "same-origin" },
+        { "key": "Cross-Origin-Resource-Policy", "value": "same-origin" }
+      ]
     }
   ],
   "redirects": [
-    { "source": "/tattvam-legal/", "destination": "https://ateeshayjain.github.io/tattvam-legal/", "permanent": false },
-    { "source": "/tattvam-legal/:path+", "destination": "https://ateeshayjain.github.io/tattvam-legal/:path+", "permanent": false },
-    { "source": "/aangan-site/", "destination": "https://ateeshayjain.github.io/aangan-site/", "permanent": false },
-    { "source": "/aangan-site/:path+", "destination": "https://ateeshayjain.github.io/aangan-site/:path+", "permanent": false }
+    { "source": "/tattvam-legal/", "destination": "/apps/tattvam/privacy/", "permanent": false },
+    { "source": "/tattvam-legal/terms.html", "destination": "/apps/tattvam/terms/", "permanent": false },
+    { "source": "/tattvam-legal/:path+", "destination": "/apps/tattvam/privacy/", "permanent": false }
+  ],
+  "rewrites": [
+    { "source": "/aangan-site/", "destination": "https://ateeshayjain.github.io/aangan-site/" },
+    { "source": "/aangan-site/:path+", "destination": "https://ateeshayjain.github.io/aangan-site/:path+" }
   ]
 }

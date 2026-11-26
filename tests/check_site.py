@@ -550,22 +550,30 @@ def check_vercel_headers(root: Path) -> None:
         fail("check_vercel_headers", "vercel.json", "missing")
         return
     data = json.loads(cfg.read_text(encoding="utf-8"))
-    rule = next((h for h in data.get("headers", []) if h.get("source") == "/(.*)"), None)
-    if not rule:
-        fail("check_vercel_headers", "vercel.json", 'no header rule for source "/(.*)"')
-        return
-    got = {h["key"]: h["value"] for h in rule.get("headers", [])}
-    for key, needles in REQUIRED_HEADERS.items():
-        if key not in got:
-            fail("check_vercel_headers", "vercel.json", f"missing header {key}")
-            continue
-        for n in needles:
-            if n not in got[key]:
-                fail("check_vercel_headers", "vercel.json", f"{key} lacks {n}")
-    csp = got.get("Content-Security-Policy", "")
-    for bad in ("'unsafe-inline'", "'unsafe-eval'", "*", "data:", "http:"):
-        if bad in csp:
-            fail("check_vercel_headers", "vercel.json", f"CSP contains {bad}")
+    rules = data.get("headers", [])
+    sources = [h.get("source", "") for h in rules]
+    # Every path must be covered: one site-wide rule (optionally excluding the
+    # proxied legal folders), plus a rule for each folder it excludes.
+    if not any(src.startswith("/(") or src.startswith("/((?!") for src in sources):
+        fail("check_vercel_headers", "vercel.json", "no site-wide header rule")
+    for src in sources:
+        for excluded in re.findall(r"\(\?!([a-z0-9-]+)/\)", src):
+            if f"/{excluded}/(.*)" not in sources:
+                fail("check_vercel_headers", "vercel.json", f"/{excluded}/ is excluded but has no header rule of its own")
+    for rule in rules:
+        src = rule.get("source", "")
+        got = {h["key"]: h["value"] for h in rule.get("headers", [])}
+        for key, needles in REQUIRED_HEADERS.items():
+            if key not in got:
+                fail("check_vercel_headers", "vercel.json", f"{src}: missing header {key}")
+                continue
+            for n in needles:
+                if n not in got[key]:
+                    fail("check_vercel_headers", "vercel.json", f"{src}: {key} lacks {n}")
+        csp = got.get("Content-Security-Policy", "")
+        for bad in ("'unsafe-inline'", "'unsafe-eval'", "'unsafe-hashes'", " * ", "data:", "http:"):
+            if bad in csp:
+                fail("check_vercel_headers", "vercel.json", f"{src}: CSP contains {bad.strip()}")
 
 
 def check_todos(root: Path, files: list[Path]) -> None:
