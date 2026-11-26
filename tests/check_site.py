@@ -531,6 +531,43 @@ def check_csp(root: Path, files: list[Path]) -> None:
             fail("check_csp", rel, "data: URLs are blocked by the CSP")
 
 
+REQUIRED_HEADERS = {
+    "Content-Security-Policy": ["default-src 'none'", "script-src 'none'", "object-src 'none'",
+                                "base-uri 'none'", "frame-ancestors 'self'", "form-action 'none'"],
+    "Strict-Transport-Security": ["max-age="],
+    "X-Content-Type-Options": ["nosniff"],
+    "X-Frame-Options": ["SAMEORIGIN"],
+    "Referrer-Policy": ["strict-origin-when-cross-origin"],
+    "Permissions-Policy": ["camera=()", "microphone=()", "geolocation=()"],
+}
+
+
+def check_vercel_headers(root: Path) -> None:
+    """vercel.json sends the security headers on every path, with no unsafe CSP."""
+    import json
+    cfg = root / "vercel.json"
+    if not cfg.exists():
+        fail("check_vercel_headers", "vercel.json", "missing")
+        return
+    data = json.loads(cfg.read_text(encoding="utf-8"))
+    rule = next((h for h in data.get("headers", []) if h.get("source") == "/(.*)"), None)
+    if not rule:
+        fail("check_vercel_headers", "vercel.json", 'no header rule for source "/(.*)"')
+        return
+    got = {h["key"]: h["value"] for h in rule.get("headers", [])}
+    for key, needles in REQUIRED_HEADERS.items():
+        if key not in got:
+            fail("check_vercel_headers", "vercel.json", f"missing header {key}")
+            continue
+        for n in needles:
+            if n not in got[key]:
+                fail("check_vercel_headers", "vercel.json", f"{key} lacks {n}")
+    csp = got.get("Content-Security-Policy", "")
+    for bad in ("'unsafe-inline'", "'unsafe-eval'", "*", "data:", "http:"):
+        if bad in csp:
+            fail("check_vercel_headers", "vercel.json", f"CSP contains {bad}")
+
+
 def check_todos(root: Path, files: list[Path]) -> None:
     for f in files:
         text = f.read_text(encoding="utf-8")
@@ -576,6 +613,7 @@ def main(argv: list[str] | None = None) -> int:
     check_no_empty_shots(root, pages)
     check_contrast(root)
     check_csp(root, html_files)
+    check_vercel_headers(root)
     if args.release:
         check_todos(root, html_files + site_files(root, "*.css"))
 
