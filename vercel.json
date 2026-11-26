@@ -23,7 +23,9 @@
     }
   ],
   "redirects": [
-    { "source": "/tattvam-legal/:path*", "destination": "https://ateeshayjain.github.io/tattvam-legal/:path*", "permanent": false },
-    { "source": "/aangan-site/:path*", "destination": "https://ateeshayjain.github.io/aangan-site/:path*", "permanent": false }
+    { "source": "/tattvam-legal/", "destination": "https://ateeshayjain.github.io/tattvam-legal/", "permanent": false },
+    { "source": "/tattvam-legal/:path+", "destination": "https://ateeshayjain.github.io/tattvam-legal/:path+", "permanent": false },
+    { "source": "/aangan-site/", "destination": "https://ateeshayjain.github.io/aangan-site/", "permanent": false },
+    { "source": "/aangan-site/:path+", "destination": "https://ateeshayjain.github.io/aangan-site/:path+", "permanent": false }
   ]
 }
